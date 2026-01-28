@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>The 16 Notes of Emotion — Master Your Emotions</title>
   <meta name="description" content="An experiential, practical course to help you move from reactive to proactive with your emotions—so conditions don’t dictate your life." />
 
@@ -17,14 +17,20 @@
       --panel: rgba(255,255,255,0.06);
       --panel2: rgba(255,255,255,0.09);
       --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.68);
+      --muted: rgba(255,255,255,0.70);
       --faint: rgba(255,255,255,0.14);
-      --accent: #7dd3fc; /* sky */
-      --accent2: #a78bfa; /* violet */
-      --ok: #86efac; /* green */
+      --accent: #7dd3fc;
+      --accent2: #a78bfa;
+      --ok: #86efac;
       --shadow: 0 18px 55px rgba(0,0,0,0.45);
       --radius: 18px;
       --max: 1080px;
+
+      /* iPhone safe areas */
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px);
+      --sar: env(safe-area-inset-right, 0px);
     }
 
     * { box-sizing: border-box; }
@@ -39,48 +45,68 @@
         radial-gradient(900px 500px at 60% 90%, rgba(134,239,172,0.12), transparent 60%),
         linear-gradient(180deg, #070b13 0%, #0b1220 100%);
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
     a { color: inherit; text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 28px 18px 70px; }
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 12px;
-      position: sticky; top: 0;
-      padding: 14px 0;
-      backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(11,18,32,0.88), rgba(11,18,32,0.55));
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      z-index: 5;
+    /* Better anchor behavior under sticky header */
+    section[id] { scroll-margin-top: 92px; }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: calc(18px + var(--sat)) calc(18px + var(--sar)) calc(70px + var(--sab)) calc(18px + var(--sal));
     }
+
+    /* ===== Header / Nav (mobile-first) ===== */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 10px 0;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(11,18,32,0.92), rgba(11,18,32,0.62));
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .topbarInner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 calc(18px + var(--sar)) 0 calc(18px + var(--sal));
+    }
+
     .brand{
       display:flex; align-items:center; gap: 12px;
       min-width: 0;
     }
     .mark{
-      width: 38px; height: 38px; border-radius: 12px;
+      width: 36px; height: 36px; border-radius: 12px;
       background: linear-gradient(135deg, rgba(125,211,252,0.9), rgba(167,139,250,0.9));
       box-shadow: 0 12px 30px rgba(0,0,0,0.35);
       flex: 0 0 auto;
     }
-    .brand h1{
-      font-size: 14px; margin: 0; letter-spacing: 0.7px; text-transform: uppercase;
-      color: rgba(255,255,255,0.80);
+    .brandTitle{
+      display:flex; flex-direction:column; gap: 2px;
+      min-width: 0;
+    }
+    .brandTitle b{
+      font-size: 13px;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.86);
       white-space: nowrap; overflow:hidden; text-overflow: ellipsis;
+      max-width: 44vw;
     }
-    .nav{
-      display:flex; align-items:center; gap: 14px; flex-wrap: wrap; justify-content:flex-end;
-    }
-    .nav a{
-      font-size: 14px; color: var(--muted);
-      padding: 8px 10px; border-radius: 10px;
-    }
-    .nav a:hover{
-      background: rgba(255,255,255,0.06);
-      text-decoration: none;
-      color: var(--text);
+    .brandTitle span{
+      font-size: 12px;
+      color: rgba(255,255,255,0.56);
+      white-space: nowrap; overflow:hidden; text-overflow: ellipsis;
+      max-width: 44vw;
     }
 
     .btn{
@@ -95,6 +121,7 @@
       font-weight: 650;
       letter-spacing: 0.2px;
       transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+      -webkit-tap-highlight-color: transparent;
     }
     .btn:hover{
       transform: translateY(-1px);
@@ -110,23 +137,150 @@
       border-color: rgba(125,211,252,0.55);
     }
 
-    .hero{
-      margin-top: 22px;
-      padding: 36px 18px 10px;
+    /* Desktop nav links (hidden on mobile) */
+    .navLinks{
+      display:none;
+      align-items:center;
+      gap: 10px;
     }
+    .navLinks a{
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      padding: 8px 10px;
+      border-radius: 10px;
+      text-decoration:none;
+    }
+    .navLinks a:hover{
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+    }
+
+    /* Mobile controls (shown on mobile) */
+    .mobileControls{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .iconBtn{
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      display:inline-flex; align-items:center; justify-content:center;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .iconBtn:hover{
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.22);
+    }
+    .iconBtn svg{ width: 20px; height: 20px; opacity: 0.9; }
+
+    /* Mobile menu panel */
+    .menuOverlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.40);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 160ms ease;
+      z-index: 80;
+    }
+    .menuOverlay.open{
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobileMenu{
+      position: fixed;
+      top: calc(12px + var(--sat));
+      left: 12px;
+      right: 12px;
+      z-index: 90;
+      background: rgba(14, 22, 40, 0.92);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.60);
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 160ms ease, opacity 160ms ease;
+      padding: 14px;
+    }
+    .mobileMenu.open{
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobileMenuHeader{
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      margin-bottom: 10px;
+    }
+    .mobileMenuHeader b{
+      font-size: 13px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+    }
+    .menuList{
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 6px 0 0;
+    }
+    .menuList a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      text-decoration:none;
+      color: rgba(255,255,255,0.86);
+      font-weight: 620;
+    }
+    .menuList a span{
+      color: rgba(255,255,255,0.60);
+      font-weight: 560;
+      font-size: 13px;
+    }
+    .menuList a:hover{
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.18);
+      text-decoration:none;
+    }
+    .menuCTA{
+      margin-top: 10px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== Main content ===== */
+    .hero{
+      margin-top: 16px;
+      padding: 18px 0 8px;
+    }
+
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 18px;
+      grid-template-columns: 1fr;
+      gap: 14px;
       align-items: stretch;
     }
+
     .card{
       background: var(--panel);
       border: 1px solid rgba(255,255,255,0.10);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
-    .card.pad{ padding: 26px; }
+    .card.pad{ padding: 22px; }
+
     .kicker{
       display:inline-flex; align-items:center; gap: 8px;
       padding: 8px 12px;
@@ -136,28 +290,34 @@
       color: rgba(255,255,255,0.78);
       font-size: 13px;
       margin-bottom: 14px;
+      max-width: 100%;
     }
     .dot{
       width: 8px; height: 8px; border-radius: 999px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow: 0 0 0 4px rgba(125,211,252,0.10);
+      flex: 0 0 auto;
     }
+
     .hero h2{
-      font-size: clamp(30px, 4.3vw, 48px);
-      line-height: 1.08;
-      margin: 0 0 14px;
-      letter-spacing: -0.8px;
+      font-size: clamp(30px, 7.2vw, 50px);
+      line-height: 1.05;
+      margin: 0 0 12px;
+      letter-spacing: -0.9px;
+      text-wrap: balance;
     }
     .hero p{
-      margin: 0 0 18px;
+      margin: 0 0 14px;
       color: var(--muted);
-      font-size: 17px;
-      max-width: 58ch;
+      font-size: 16px;
+      max-width: 60ch;
     }
     .ctaRow{
-      display:flex; flex-wrap: wrap; gap: 12px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 12px;
       align-items:center;
-      margin-top: 18px;
+      margin-top: 12px;
     }
     .micro{
       font-size: 13px;
@@ -166,7 +326,7 @@
 
     .sideCard{
       display:flex; flex-direction: column; gap: 12px;
-      padding: 22px;
+      padding: 18px;
       background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.05));
     }
     .sideCard h3{
@@ -180,6 +340,7 @@
       color: var(--muted);
       margin: 0;
     }
+
     .pillGrid{
       display:grid;
       grid-template-columns: 1fr;
@@ -196,12 +357,16 @@
     .pill span{ display:block; margin-top: 3px; color: var(--muted); font-size: 13px; }
 
     .section{
-      margin-top: 22px;
-      padding: 0 18px;
+      margin-top: 18px;
+      padding: 0;
     }
     .sectionHeader{
-      display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
       margin: 14px 0 12px;
+      flex-wrap: wrap;
     }
     .sectionHeader h3{
       margin: 0;
@@ -212,19 +377,20 @@
       margin: 0;
       color: var(--muted);
       font-size: 14px;
-      max-width: 60ch;
+      max-width: 70ch;
     }
 
     .grid2{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 14px;
     }
     .grid3{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr;
       gap: 14px;
     }
+
     .box{
       padding: 18px;
       border-radius: var(--radius);
@@ -250,14 +416,13 @@
 
     .split{
       display:grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1fr;
       gap: 14px;
       align-items: stretch;
     }
 
     .quote{
-      position: relative;
-      padding: 20px 18px;
+      padding: 18px 16px;
       background: rgba(125,211,252,0.07);
       border: 1px solid rgba(125,211,252,0.18);
       border-radius: var(--radius);
@@ -275,8 +440,8 @@
     }
 
     .ctaBanner{
-      margin-top: 22px;
-      padding: 22px;
+      margin-top: 18px;
+      padding: 18px;
       border-radius: calc(var(--radius) + 4px);
       background:
         radial-gradient(700px 240px at 20% 30%, rgba(125,211,252,0.16), transparent 60%),
@@ -284,7 +449,11 @@
         rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: var(--shadow);
-      display:flex; flex-wrap: wrap; align-items:center; justify-content:space-between; gap: 16px;
+      display:flex;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
     }
     .ctaBanner h3{
       margin: 0 0 4px;
@@ -298,52 +467,109 @@
     }
 
     footer{
-      margin-top: 34px;
-      padding: 0 18px;
+      margin-top: 30px;
       color: rgba(255,255,255,0.55);
       font-size: 13px;
     }
     .hr{
       height: 1px;
       background: rgba(255,255,255,0.10);
-      margin: 22px 0;
+      margin: 18px 0;
     }
 
-    /* Responsive */
-    @media (max-width: 860px){
-      .heroGrid, .split { grid-template-columns: 1fr; }
-      .grid3 { grid-template-columns: 1fr; }
-      .grid2 { grid-template-columns: 1fr; }
-      .topbar{ position: relative; }
+    /* ===== Desktop enhancements ===== */
+    @media (min-width: 880px){
+      .wrap{
+        padding: calc(28px + var(--sat)) calc(18px + var(--sar)) calc(70px + var(--sab)) calc(18px + var(--sal));
+      }
+      .hero{
+        margin-top: 22px;
+        padding: 22px 0 8px;
+      }
+      .heroGrid{
+        grid-template-columns: 1.35fr 0.65fr;
+      }
+      .grid2{ grid-template-columns: 1fr 1fr; }
+      .grid3{ grid-template-columns: repeat(3, 1fr); }
+      .split{ grid-template-columns: 1.1fr 0.9fr; }
+      .navLinks{ display:flex; }
+      .mobileControls{ display:none; }
+      .brandTitle b, .brandTitle span{ max-width: 380px; }
+      section[id] { scroll-margin-top: 110px; }
     }
 
-    /* Accessibility helpers */
+    /* Accessibility */
     .sr-only{
       position:absolute; width:1px; height:1px; padding:0; margin:-1px;
       overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    :focus-visible{
+      outline: 2px solid rgba(125,211,252,0.7);
+      outline-offset: 3px;
+      border-radius: 12px;
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header class="topbar">
-      <div class="brand">
+  <!-- Sticky header -->
+  <header class="topbar">
+    <div class="topbarInner">
+      <a class="brand" href="#top" aria-label="Go to top">
         <div class="mark" aria-hidden="true"></div>
-        <h1>The 16 Notes of Emotion</h1>
-      </div>
+        <div class="brandTitle">
+          <b>The 16 Notes of Emotion</b>
+          <span>Emotional mastery, taught as a skill</span>
+        </div>
+      </a>
 
-      <nav class="nav" aria-label="Primary">
+      <!-- Desktop nav -->
+      <nav class="navLinks" aria-label="Primary">
         <a href="#model">The Model</a>
         <a href="#learn">What You’ll Learn</a>
         <a href="#for">Who It’s For</a>
         <a href="#faq">FAQ</a>
-        <a class="btn primary" href="tel:9190000000" aria-label="Call Brad at 919-000-0000">
-          Call Brad
-        </a>
+        <a class="btn primary" href="tel:9190000000" aria-label="Call Brad at 919-000-0000">Call Brad</a>
       </nav>
-    </header>
 
+      <!-- Mobile controls -->
+      <div class="mobileControls" aria-label="Mobile controls">
+        <a class="btn primary" href="tel:9190000000" aria-label="Call Brad at 919-000-0000" style="padding:12px 14px;">
+          Call
+        </a>
+        <button id="menuBtn" class="iconBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div id="menuOverlay" class="menuOverlay" aria-hidden="true"></div>
+  <div id="mobileMenu" class="mobileMenu" role="dialog" aria-modal="true" aria-label="Site menu">
+    <div class="mobileMenuHeader">
+      <b>Menu</b>
+      <button id="closeMenuBtn" class="iconBtn" type="button" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="menuList">
+      <a href="#model" data-close-menu>THE MODEL <span>Two octaves</span></a>
+      <a href="#learn" data-close-menu>WHAT YOU’LL LEARN <span>16 notes</span></a>
+      <a href="#for" data-close-menu>WHO IT’S FOR <span>Seekers</span></a>
+      <a href="#faq" data-close-menu>FAQ <span>Quick answers</span></a>
+    </div>
+    <div class="menuCTA">
+      <a class="btn primary" href="tel:9190000000">Talk to Brad — 919-000-0000</a>
+      <a class="btn" href="#top" data-close-menu>Back to top</a>
+    </div>
+  </div>
+
+  <div class="wrap">
     <main>
       <!-- HERO -->
       <section class="hero" id="top">
@@ -393,7 +619,7 @@
         </div>
       </section>
 
-      <!-- BIG PROMISE -->
+      <!-- MODEL -->
       <section class="section" id="model">
         <div class="sectionHeader">
           <h3>A simple model that sticks</h3>
@@ -424,7 +650,7 @@
         </div>
       </section>
 
-      <!-- WHAT YOU'LL LEARN -->
+      <!-- LEARN -->
       <section class="section" id="learn">
         <div class="sectionHeader">
           <h3>What you’ll learn</h3>
@@ -501,7 +727,7 @@
         </div>
       </section>
 
-      <!-- HOW IT WORKS -->
+      <!-- HOW -->
       <section class="section" id="how">
         <div class="sectionHeader">
           <h3>How it works</h3>
@@ -524,7 +750,7 @@
         </div>
       </section>
 
-      <!-- CTA BANNER -->
+      <!-- CTA -->
       <section class="section">
         <div class="ctaBanner" role="region" aria-label="Call to action">
           <div>
@@ -570,20 +796,52 @@
       <div class="hr"></div>
       <p>
         © <span id="year"></span> The 16 Notes of Emotion.
-        <!-- Edit these details as needed -->
         <span style="display:block; margin-top:6px;">
           Contact: <a href="tel:9190000000">919-000-0000</a>
         </span>
-      </p>
-      <p class="micro" style="margin-top:10px;">
-        <!-- Optional: add your domain or a short legal note here -->
       </p>
     </footer>
   </div>
 
   <script>
-    // Tiny convenience: auto-update footer year
+    // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile menu logic
+    const menuBtn = document.getElementById("menuBtn");
+    const closeMenuBtn = document.getElementById("closeMenuBtn");
+    const menu = document.getElementById("mobileMenu");
+    const overlay = document.getElementById("menuOverlay");
+
+    function openMenu(){
+      menu.classList.add("open");
+      overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden","false");
+      menuBtn.setAttribute("aria-expanded","true");
+      document.body.style.overflow = "hidden";
+    }
+    function closeMenu(){
+      menu.classList.remove("open");
+      overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden","true");
+      menuBtn.setAttribute("aria-expanded","false");
+      document.body.style.overflow = "";
+    }
+    function isOpen(){ return menu.classList.contains("open"); }
+
+    menuBtn?.addEventListener("click", () => isOpen() ? closeMenu() : openMenu());
+    closeMenuBtn?.addEventListener("click", closeMenu);
+    overlay?.addEventListener("click", closeMenu);
+
+    // Close menu when clicking a menu link
+    document.querySelectorAll("[data-close-menu]").forEach(el => {
+      el.addEventListener("click", closeMenu);
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen()) closeMenu();
+    });
   </script>
 </body>
 </html>
