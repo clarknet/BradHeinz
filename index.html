@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The 16 Notes of Emotion — Master Your Emotions</title>
+  <meta name="description" content="An experiential, practical course to help you move from reactive to proactive with your emotions—so conditions don’t dictate your life." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="The 16 Notes of Emotion" />
+  <meta property="og:description" content="Master your emotions—or let them master you. Learn to move from reactive to proactive, on demand." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.09);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.68);
+      --faint: rgba(255,255,255,0.14);
+      --accent: #7dd3fc; /* sky */
+      --accent2: #a78bfa; /* violet */
+      --ok: #86efac; /* green */
+      --shadow: 0 18px 55px rgba(0,0,0,0.45);
+      --radius: 18px;
+      --max: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(125,211,252,0.22), transparent 55%),
+        radial-gradient(900px 500px at 80% 20%, rgba(167,139,250,0.22), transparent 60%),
+        radial-gradient(900px 500px at 60% 90%, rgba(134,239,172,0.12), transparent 60%),
+        linear-gradient(180deg, #070b13 0%, #0b1220 100%);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 28px 18px 70px; }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px;
+      position: sticky; top: 0;
+      padding: 14px 0;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(11,18,32,0.88), rgba(11,18,32,0.55));
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      z-index: 5;
+    }
+    .brand{
+      display:flex; align-items:center; gap: 12px;
+      min-width: 0;
+    }
+    .mark{
+      width: 38px; height: 38px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(125,211,252,0.9), rgba(167,139,250,0.9));
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      flex: 0 0 auto;
+    }
+    .brand h1{
+      font-size: 14px; margin: 0; letter-spacing: 0.7px; text-transform: uppercase;
+      color: rgba(255,255,255,0.80);
+      white-space: nowrap; overflow:hidden; text-overflow: ellipsis;
+    }
+    .nav{
+      display:flex; align-items:center; gap: 14px; flex-wrap: wrap; justify-content:flex-end;
+    }
+    .nav a{
+      font-size: 14px; color: var(--muted);
+      padding: 8px 10px; border-radius: 10px;
+    }
+    .nav a:hover{
+      background: rgba(255,255,255,0.06);
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.22);
+      font-weight: 650;
+      letter-spacing: 0.2px;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.22);
+      text-decoration:none;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(125,211,252,0.25), rgba(167,139,250,0.25));
+      border-color: rgba(125,211,252,0.35);
+    }
+    .btn.primary:hover{
+      border-color: rgba(125,211,252,0.55);
+    }
+
+    .hero{
+      margin-top: 22px;
+      padding: 36px 18px 10px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .card{
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .card.pad{ padding: 26px; }
+    .kicker{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .dot{
+      width: 8px; height: 8px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(125,211,252,0.10);
+    }
+    .hero h2{
+      font-size: clamp(30px, 4.3vw, 48px);
+      line-height: 1.08;
+      margin: 0 0 14px;
+      letter-spacing: -0.8px;
+    }
+    .hero p{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 58ch;
+    }
+    .ctaRow{
+      display:flex; flex-wrap: wrap; gap: 12px;
+      align-items:center;
+      margin-top: 18px;
+    }
+    .micro{
+      font-size: 13px;
+      color: rgba(255,255,255,0.62);
+    }
+
+    .sideCard{
+      display:flex; flex-direction: column; gap: 12px;
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.05));
+    }
+    .sideCard h3{
+      margin: 0;
+      font-size: 16px;
+      color: rgba(255,255,255,0.86);
+      letter-spacing: 0.2px;
+    }
+    .sideCard .big{
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+    }
+    .pillGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .pill{
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .pill b{ display:block; font-size: 13px; letter-spacing: 0.2px; }
+    .pill span{ display:block; margin-top: 3px; color: var(--muted); font-size: 13px; }
+
+    .section{
+      margin-top: 22px;
+      padding: 0 18px;
+    }
+    .sectionHeader{
+      display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
+      margin: 14px 0 12px;
+    }
+    .sectionHeader h3{
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -0.2px;
+    }
+    .sectionHeader p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 60ch;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .box{
+      padding: 18px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .box h4{
+      margin: 0 0 6px;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      color: rgba(255,255,255,0.88);
+    }
+    .box p, .box ul{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .box ul{
+      padding-left: 18px;
+      margin-top: 10px;
+    }
+    .box li{ margin: 6px 0; }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .quote{
+      position: relative;
+      padding: 20px 18px;
+      background: rgba(125,211,252,0.07);
+      border: 1px solid rgba(125,211,252,0.18);
+      border-radius: var(--radius);
+    }
+    .quote p{
+      margin: 0;
+      font-size: 15px;
+      color: rgba(255,255,255,0.82);
+    }
+    .quote small{
+      display:block;
+      margin-top: 10px;
+      color: rgba(255,255,255,0.62);
+      font-size: 13px;
+    }
+
+    .ctaBanner{
+      margin-top: 22px;
+      padding: 22px;
+      border-radius: calc(var(--radius) + 4px);
+      background:
+        radial-gradient(700px 240px at 20% 30%, rgba(125,211,252,0.16), transparent 60%),
+        radial-gradient(700px 240px at 80% 20%, rgba(167,139,250,0.14), transparent 60%),
+        rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow);
+      display:flex; flex-wrap: wrap; align-items:center; justify-content:space-between; gap: 16px;
+    }
+    .ctaBanner h3{
+      margin: 0 0 4px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+    .ctaBanner p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer{
+      margin-top: 34px;
+      padding: 0 18px;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+    }
+    .hr{
+      height: 1px;
+      background: rgba(255,255,255,0.10);
+      margin: 22px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px){
+      .heroGrid, .split { grid-template-columns: 1fr; }
+      .grid3 { grid-template-columns: 1fr; }
+      .grid2 { grid-template-columns: 1fr; }
+      .topbar{ position: relative; }
+    }
+
+    /* Accessibility helpers */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <h1>The 16 Notes of Emotion</h1>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#model">The Model</a>
+        <a href="#learn">What You’ll Learn</a>
+        <a href="#for">Who It’s For</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn primary" href="tel:9190000000" aria-label="Call Brad at 919-000-0000">
+          Call Brad
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="heroGrid">
+          <div class="card pad">
+            <div class="kicker"><span class="dot" aria-hidden="true"></span>Experiential coaching • Practical emotional mastery</div>
+
+            <h2>Master your emotions—or let them master you.</h2>
+
+            <p>
+              Most people don’t need more insight. They need a <b>skill</b>:
+              the ability to move from <b>reactive</b> to <b>proactive</b>—on demand—
+              so conditions don’t get to dictate their life.
+            </p>
+
+            <p>
+              <b>The 16 Notes of Emotion</b> is a practical, felt (not just intellectual) course that teaches you to recognize
+              what you’re feeling in real time and shift your internal state—so you can respond with clarity, steadiness, and freedom.
+            </p>
+
+            <div class="ctaRow">
+              <a class="btn primary" href="tel:9190000000">Curious? Talk to Brad — 919-000-0000</a>
+              <a class="btn" href="#learn">See what you’ll learn</a>
+              <span class="micro">No hype. Just a repeatable skill.</span>
+            </div>
+          </div>
+
+          <aside class="card sideCard" aria-label="Quick summary">
+            <h3>What this changes</h3>
+            <p class="big">Reactive → Proactive. Enslaved by conditions → Empowered to choose your response.</p>
+
+            <div class="pillGrid">
+              <div class="pill">
+                <b>Low Road (Lower Octave)</b>
+                <span>Ground level, narrow view, tunnels, pressure, force.</span>
+              </div>
+              <div class="pill">
+                <b>High Road (Higher Octave)</b>
+                <span>Elevation, wide-angle perspective, vistas, light, power.</span>
+              </div>
+              <div class="pill">
+                <b>Core Skill</b>
+                <span>Recognize your state, then learn how to move upward—reliably.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- BIG PROMISE -->
+      <section class="section" id="model">
+        <div class="sectionHeader">
+          <h3>A simple model that sticks</h3>
+          <p>Two octaves. Two roads. A practical way to stop being pushed around by your internal state.</p>
+        </div>
+
+        <div class="split">
+          <div class="box">
+            <h4>Reactive vs Proactive</h4>
+            <ul>
+              <li><b>Reactive:</b> conditions dictate how you feel; you’re at the mercy of triggers.</li>
+              <li><b>Proactive:</b> you choose your response; you gain freedom regardless of conditions.</li>
+            </ul>
+            <div class="hr"></div>
+            <p>
+              The more proactive you become with your emotions, the more you experience <b>freedom</b>—not as a concept,
+              but as something you can actually <b>do</b>.
+            </p>
+          </div>
+
+          <div class="quote" role="note">
+            <p>
+              “Low road is ground level—limited view. High road gives elevation—vistas and the big picture.
+              The higher you go, the wider you can see.”
+            </p>
+            <small>One of the core metaphors in the course (experienced, not just understood).</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT YOU'LL LEARN -->
+      <section class="section" id="learn">
+        <div class="sectionHeader">
+          <h3>What you’ll learn</h3>
+          <p>Learn the 16 “notes” (energy fields) like a musician learns sound: experiential, felt, repeatable.</p>
+        </div>
+
+        <div class="grid3">
+          <div class="box">
+            <h4>Recognize in real time</h4>
+            <p>Spot the octave you’re in before it hijacks your words, choices, and relationships.</p>
+          </div>
+          <div class="box">
+            <h4>Letting go (the core)</h4>
+            <p>Release the downward pull of lower states and learn the upward flow toward higher states.</p>
+          </div>
+          <div class="box">
+            <h4>Witnessing</h4>
+            <p>Build the capacity to observe the wave instead of being dragged by it—more clarity, less compulsion.</p>
+          </div>
+        </div>
+
+        <div class="grid2" style="margin-top:14px;">
+          <div class="box">
+            <h4>Power vs force</h4>
+            <p>
+              Lower octaves feel heavy and compelling—like gravity. Higher octaves carry more real power:
+              clearer perception, more choice, less reactivity.
+            </p>
+          </div>
+          <div class="box">
+            <h4>Ocean-to-air metaphor</h4>
+            <p>
+              Lower states can feel like deep water—pressure, darkness, limited options. As you rise, you get oxygen and light.
+              Break the surface and you see the sunlight directly.
+            </p>
+          </div>
+        </div>
+
+        <div class="box" style="margin-top:14px;">
+          <h4>Example “hook”: Pride (a tricky note)</h4>
+          <p>
+            Pride is complex because it’s constantly valuing and judging. Once you can spot it <i>as it happens</i>,
+            you stop being owned by it—and your relationships get cleaner fast.
+          </p>
+        </div>
+      </section>
+
+      <!-- FOR WHO -->
+      <section class="section" id="for">
+        <div class="sectionHeader">
+          <h3>Who it’s for</h3>
+          <p>This is for seekers—curious people ready to practice, not debate whether growth is possible.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="box">
+            <h4>Great fit if you…</h4>
+            <ul>
+              <li>Believe personal growth is learnable (and you’re ready to practice).</li>
+              <li>Want practical skills, not vague inspiration.</li>
+              <li>Feel capable, but inconsistent under pressure.</li>
+              <li>Want more freedom and less emotional autopilot.</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h4>Not a fit if you…</h4>
+            <ul>
+              <li>Want a quick motivational hit.</li>
+              <li>Prefer to stay purely intellectual (no felt experience).</li>
+              <li>Are looking for someone to convince you growth is real.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="section" id="how">
+        <div class="sectionHeader">
+          <h3>How it works</h3>
+          <p>Designed to be engaging: stories, practice, and “learn-by-doing” momentum.</p>
+        </div>
+
+        <div class="grid3">
+          <div class="box">
+            <h4>Online modules</h4>
+            <p>Structured learning you can return to—built for real life application.</p>
+          </div>
+          <div class="box">
+            <h4>Study groups (optional)</h4>
+            <p>Practice with others and sharpen recognition through shared reflection.</p>
+          </div>
+          <div class="box">
+            <h4>1:1 coaching (optional)</h4>
+            <p>Personal guidance to build your “playbook” for repeatable shifts.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA BANNER -->
+      <section class="section">
+        <div class="ctaBanner" role="region" aria-label="Call to action">
+          <div>
+            <h3>Want to see if it’s a fit?</h3>
+            <p>Ask: “Is this a fit for what I’m dealing with right now?”</p>
+          </div>
+          <div class="ctaRow" style="margin:0;">
+            <a class="btn primary" href="tel:9190000000">Talk to Brad — 919-000-0000</a>
+            <a class="btn" href="#faq">Read FAQ</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <div class="sectionHeader">
+          <h3>FAQ</h3>
+          <p>Quick answers. Keep it simple. Keep it real.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="box">
+            <h4>How long does it take to see results?</h4>
+            <p>Most people notice shifts quickly because the work targets real scenarios you’re facing now.</p>
+          </div>
+          <div class="box">
+            <h4>Is this therapy?</h4>
+            <p>No. This is coaching and skill-building: awareness, decisions, habits, and practice.</p>
+          </div>
+          <div class="box">
+            <h4>What if I’m skeptical?</h4>
+            <p>That’s fine. This is experiential—results show up in how you handle real moments.</p>
+          </div>
+          <div class="box">
+            <h4>What do I do to start?</h4>
+            <p>Call Brad. You’ll talk through what you’re dealing with and whether this is a fit.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="hr"></div>
+      <p>
+        © <span id="year"></span> The 16 Notes of Emotion.
+        <!-- Edit these details as needed -->
+        <span style="display:block; margin-top:6px;">
+          Contact: <a href="tel:9190000000">919-000-0000</a>
+        </span>
+      </p>
+      <p class="micro" style="margin-top:10px;">
+        <!-- Optional: add your domain or a short legal note here -->
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Tiny convenience: auto-update footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
